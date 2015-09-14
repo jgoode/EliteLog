@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteLog", "EliteLog\EliteLog.csproj", "{F65009B2-99E6-4958-8268-810644A8421A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteLog.Tests", "EliteLog.Tests\EliteLog.Tests.csproj", "{64F27D03-C7EC-47B4-B49F-E0F65868FD76}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{790C9124-D699-48C7-9F82-FD9C3FE0DAC4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{41975A19-2D31-4331-A12A-7FE68C2304C3}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{FE303E0B-7936-4AE9-8D0A-864E4A37666E}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\EliteLog.json = PublishScripts\Templates\EliteLog.json
+		PublishScripts\Templates\EliteLog.param.dev.json = PublishScripts\Templates\EliteLog.param.dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteParse", "EliteParse\EliteParse.csproj", "{97F71CB9-62B8-4B97-8604-7B75BFC74A20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteParseTest", "EliteParseTest\EliteParseTest.csproj", "{00288F2B-9D58-4DAF-86F3-15384809DEE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F65009B2-99E6-4958-8268-810644A8421A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65009B2-99E6-4958-8268-810644A8421A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65009B2-99E6-4958-8268-810644A8421A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65009B2-99E6-4958-8268-810644A8421A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F27D03-C7EC-47B4-B49F-E0F65868FD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F27D03-C7EC-47B4-B49F-E0F65868FD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F27D03-C7EC-47B4-B49F-E0F65868FD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F27D03-C7EC-47B4-B49F-E0F65868FD76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97F71CB9-62B8-4B97-8604-7B75BFC74A20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97F71CB9-62B8-4B97-8604-7B75BFC74A20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97F71CB9-62B8-4B97-8604-7B75BFC74A20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97F71CB9-62B8-4B97-8604-7B75BFC74A20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41975A19-2D31-4331-A12A-7FE68C2304C3} = {790C9124-D699-48C7-9F82-FD9C3FE0DAC4}
+		{FE303E0B-7936-4AE9-8D0A-864E4A37666E} = {790C9124-D699-48C7-9F82-FD9C3FE0DAC4}
+	EndGlobalSection
+EndGlobal
