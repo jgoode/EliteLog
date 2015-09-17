@@ -21,8 +21,22 @@ namespace EliteParse.Repository {
             return expedition;
         }
 
-        public IList<Expedition> GetAll() {
-            throw new NotImplementedException();
+        public async Task<IList<Expedition>> GetAll() {
+            var query = ParseObject.GetQuery("Expedition");
+            IEnumerable<ParseObject> items = await query.FindAsync();
+            var expeditions = items.ToList().Select(p => ExpeditionMapper.Map(p));
+            return expeditions.ToList();
+        }
+
+        public async Task<IList<Expedition>> GetByUser(string user) {
+            var query = from item in ParseObject.GetQuery("Expedition")
+                        where item.Get<string>("username") == user
+                        select item;
+
+            IEnumerable<ParseObject> items = await query.FindAsync();
+            var expeditions = items.ToList().Select(p => ExpeditionMapper.Map(p));
+
+            return expeditions.ToList();
         }
 
         public IList<Expedition> GetByValue(Expedition entity) {

@@ -49,11 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappers\ExpeditionMapper.cs" />
-    <Compile Include="Models\ExpeditionEntity.cs" />
+    <Compile Include="Mappers\StarSystemMapper.cs" />
+    <Compile Include="Models\Expedition.cs" />
     <Compile Include="Models\IEntity.cs" />
+    <Compile Include="Models\StarSystem.cs" />
     <Compile Include="Repository\ExpeditionRespository.cs" />
     <Compile Include="Repository\IExpeditionRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\IStarSystemRepository.cs" />
+    <Compile Include="Repository\StarSystemRepository.cs" />
     <Compile Include="Services\EliteParseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

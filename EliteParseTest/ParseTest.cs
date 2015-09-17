@@ -42,14 +42,24 @@ namespace EliteParseTest
         }
 
         [Fact]
-        public void ShouldReturnCurrentExpedition() {
+        public async void ShouldReturnCurrentExpedition() {
             var parseObject = new ParseObject("Expedition");
-            var expRepository = new ExpeditionRespository(parseObject);
+            var expRepository = new ExpeditionRespository();
         
-            Expedition current =  expRepository.GetCurrent(); 
+            Expedition current = await expRepository.GetCurrent(); 
 
             Assert.NotNull(current);
             Assert.True(current.Current);
+        }
+        [Fact]
+        public async void ShouldReturnAllExpeditions() {
+            var parseObject = new ParseObject("Expedition");
+            var expRepository = new ExpeditionRespository();
+
+            IList<Expedition> expeditions = await expRepository.GetAll();
+
+            Assert.NotNull(expeditions);
+            Assert.True(expeditions.Count > 0);
         }
     }
 }

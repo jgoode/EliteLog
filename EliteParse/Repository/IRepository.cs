@@ -8,7 +8,7 @@ using Parse;
 namespace EliteParse.Repository {
     public interface IRepository<IEntity> {
         void Save(IEntity entity);
-        IList<IEntity> GetAll();
+        Task<IList<IEntity>> GetAll();
         IEntity GetOneById(string id);
         IList<IEntity> GetByValue(IEntity entity);
     }
