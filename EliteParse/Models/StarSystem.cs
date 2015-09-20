@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EliteParse.Models {
+    /// <summary>
+    /// StarSystem Entity
+    /// </summary>
     public class StarSystem : IEntity {
         public string ObjectId { get; set; }
         public string Name { get; set; }

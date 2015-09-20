@@ -7,7 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EliteParse.Mappers {
+    /// <summary>
+    /// Maps Parse System object to StarSystem object
+    /// </summary>
     public class StarSystemMapper {
+        /// <summary>
+        /// Returns a StarSystem instance
+        /// </summary>
+        /// <param name="parse"></param>
+        /// <returns></returns>
         public static StarSystem Map(ParseObject parse) {
             return new StarSystem {
                 AmmoniaCount = parse.Get<int>("ammoniaCount"),

@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EliteParse.Models {
+    /// <summary>
+    /// Expedition Entity
+    /// </summary>
     public class Expedition : IEntity{
         public string ObjectId { get; set; }
         public string Name { get; set; }

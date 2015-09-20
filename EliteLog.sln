@@ -24,6 +24,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteParse", "EliteParse\El
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteParseTest", "EliteParseTest\EliteParseTest.csproj", "{00288F2B-9D58-4DAF-86F3-15384809DEE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDDiscovery", "..\..\Users\John Goode\Documents\GitHub\EDDiscovery\EDDiscovery\EDDiscovery.csproj", "{6EE10D92-E3E4-44D9-8E6B-851801B0B510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteLogger", "EliteLogger\EliteLogger.csproj", "{1DFD7E59-A104-4747-B401-09CA0BC8214E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +50,14 @@ Global
 		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00288F2B-9D58-4DAF-86F3-15384809DEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EE10D92-E3E4-44D9-8E6B-851801B0B510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EE10D92-E3E4-44D9-8E6B-851801B0B510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EE10D92-E3E4-44D9-8E6B-851801B0B510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EE10D92-E3E4-44D9-8E6B-851801B0B510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFD7E59-A104-4747-B401-09CA0BC8214E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFD7E59-A104-4747-B401-09CA0BC8214E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFD7E59-A104-4747-B401-09CA0BC8214E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFD7E59-A104-4747-B401-09CA0BC8214E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,7 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EliteParse.Mappers {
+    /// <summary>
+    /// Maps Parse System object to StarSystem object
+    /// </summary>
     public class ExpeditionMapper {
+        /// <summary>
+        /// Returns a Expedition instance
+        /// </summary>
+        /// <param name="parse"></param>
+        /// <returns></returns>
         public static Expedition Map(ParseObject parseObject) {
             Expedition exp = new Expedition();
             exp.ObjectId = parseObject.ObjectId;

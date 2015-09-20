@@ -39,16 +39,17 @@ namespace EliteParse.Repository {
             return expeditions.ToList();
         }
 
-        public IList<Expedition> GetByValue(Expedition entity) {
-            throw new NotImplementedException();
-        }
-
-        public Expedition GetOneById(string id) {
-            throw new NotImplementedException();
-        }
-
         public void Save(Expedition entity) {
             throw new NotImplementedException();
         }
+
+        public async Task<Expedition> GetOneById(string id) {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Expedition> GetByName(string name) {
+            throw new NotImplementedException();
+        }
+
     }
 }
