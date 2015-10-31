@@ -11,7 +11,7 @@ namespace EliteParse.Repository {
     /// </summary>
     /// <typeparam name="IEntity">IEntity for mapped Parse objects</typeparam>
     public interface IRepository<IEntity> {
-        void Save(IEntity entity);
+        Task<IEntity> Save(IEntity entity);
         Task<IList<IEntity>> GetAll();
         Task<IEntity> GetOneById(string id);
         Task<IEntity> GetByName(string name);

@@ -77,8 +77,16 @@ namespace EliteParse.Repository {
         /// Persist StarSystem entity to Parse database
         /// </summary>
         /// <param name="entity">Entity to save</param>
-        public void Save(StarSystem entity) {
-            throw new NotImplementedException();
+        public async Task<StarSystem> Save(StarSystem entity) {
+            if (null == entity) throw new ArgumentNullException("StarSystem");
+            ParseObject starSystem = new ParseObject("System");
+            starSystem["name"] = entity.Name;
+            starSystem["expedition"] = _expedition.ObjectId;
+            await starSystem.SaveAsync();
+            entity.ObjectId = starSystem.ObjectId;
+            entity.CreatedAt = starSystem.CreatedAt.Value;
+            entity.UpdatedAt = starSystem.UpdatedAt.Value;
+            return entity;
         }
     }
 }

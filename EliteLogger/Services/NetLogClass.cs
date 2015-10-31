@@ -1,5 +1,5 @@
-using EDDiscovery.DB;
-using EDDiscovery2;
+//using EDDiscovery.DB;
+//using EDDiscovery2;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace EDDiscovery
+namespace EliteLogger.Services
 {
     public delegate void NetLogEventHandler(object source);
 
@@ -31,83 +31,84 @@ namespace EDDiscovery
         bool NoEvents = false;
         public event NetLogEventHandler OnNewPosition;
 
-        SQLiteDBClass db=null;
+       // SQLiteDBClass db=null;
 
 
         public string GetNetLogPath()
         {
-            try
-            {
-                if (db == null)
-                    db = new SQLiteDBClass();
+            string datapath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products\\FORC-FDEV-D-1003\\Logs";
+            DirectoryInfo dirInfo = new DirectoryInfo(datapath);
+            FileInfo[] allFiles = dirInfo.GetFiles("netLog*.log", SearchOption.AllDirectories);
+            //try
+            //{
+            //    //if (db == null)
+            //       // db = new SQLiteDBClass();
 
-                string netlogdirstored = db.GetSettingString("Netlogdir", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products");
-                string datapath = null;
-                if (db.GetSettingBool("NetlogDirAutoMode", true))
-                {
-                    if (EliteDangerous.EDDirectory != null && EliteDangerous.EDDirectory.Length > 0)
-                    {
-                        datapath = Path.Combine(EliteDangerous.EDDirectory, "Logs");
-                        if (!netlogdirstored.Equals(datapath))
-                            db.PutSettingString("Netlogdir", datapath);
-                        return datapath;
-                    }
+            //    //string netlogdirstored = db.GetSettingString("Netlogdir", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products");
+            //    string datapath = null;
+            //    //if (db.GetSettingBool("NetlogDirAutoMode", true))
+            //    {
+            //        if (EliteDangerous.EDDirectory != null && EliteDangerous.EDDirectory.Length > 0)
+            //        {
+            //            datapath = Path.Combine(EliteDangerous.EDDirectory, "Logs");
+            //            if (!netlogdirstored.Equals(datapath))
+            //                db.PutSettingString("Netlogdir", datapath);
+            //            return datapath;
+            //        }
 
-                    datapath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products"; // \\FORC-FDEV-D-1001\\Logs\\";
+            //        datapath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products"; // \\FORC-FDEV-D-1001\\Logs\\";
 
-                    // Find the right subdirectory....
+            //        // Find the right subdirectory....
 
-                    DirectoryInfo dirInfo = new DirectoryInfo(datapath);
-                    FileInfo[] allFiles = null;
+            //        DirectoryInfo dirInfo = new DirectoryInfo(datapath);
+            //        FileInfo[] allFiles = null;
 
-                    try
-                    {
-                        allFiles = dirInfo.GetFiles("netLog*.log", SearchOption.AllDirectories);
-                    }
-                    catch
-                    {
-                    }
+            //        try
+            //        {
+            //            allFiles = dirInfo.GetFiles("netLog*.log", SearchOption.AllDirectories);
+            //        }
+            //        catch
+            //        {
+            //        }
 
-                    if (allFiles == null)
-                    {
-                        return null;
-                    }
-
-                    DateTime newtime = new DateTime(2000, 10, 10);
-                    FileInfo newfi = null;
-
-
-                    foreach (FileInfo fi in allFiles)
-                    {
-                        if (fi.CreationTimeUtc > newtime)
-                        {
-                            newtime = fi.CreationTimeUtc;
-                            newfi = fi;
-                        }
-                    }
-
-                    if (newfi != null)
-                    {
-                        db.PutSettingString("Netlogdir" , newfi.DirectoryName);
-                        db.PutSettingBool("NetlogDirAutoMode" , false);
-                        datapath = newfi.DirectoryName;
-                    }
+            //        if (allFiles == null)
+            //        {
+            //            return null;
+            //        }
+            var now = DateTime.Now;
+            DateTime newtime = new DateTime(now.Year, now.Month, now.Day);
+            FileInfo newfi = null;
 
 
-
+            foreach (FileInfo fi in allFiles) {
+                if (fi.CreationTimeUtc > newtime) {
+                    newtime = fi.CreationTimeUtc;
+                    newfi = fi;
                 }
-                else
-                {
-                    datapath = db.GetSettingString("Netlogdir", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products");
-                }
+            }
 
-                return datapath;
+            if (newfi != null) {
+                //db.PutSettingString("Netlogdir", newfi.DirectoryName);
+                //db.PutSettingBool("NetlogDirAutoMode", false);
+                datapath = newfi.DirectoryName;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("GetNetLogPath exception: " + ex.Message);
-                return null;
-            }
+
+
+
+            //    }
+            //    else
+            //    {
+            //        datapath = db.GetSettingString("Netlogdir", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products");
+            //    }
+
+            //    return datapath;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("GetNetLogPath exception: " + ex.Message);
+            //    return null;
+            //}
+            return datapath;
         }
 
 

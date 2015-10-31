@@ -10,9 +10,9 @@ using EliteParse.Mappers;
 namespace EliteParse.Repository {
     public class ExpeditionRespository : IExpeditionRepository {
 
-       public async Task<Expedition> GetCurrent() {
+       public async Task<Expedition> GetCurrent(string user) {
             var query = from item in ParseObject.GetQuery("Expedition")
-                        where item.Get<int>("current") == 1
+                        where item.Get<int>("current") == 1 && item.Get<string>("username") == user
                         select item;
 
             ParseObject parseObject = await query.FirstAsync();
@@ -39,10 +39,6 @@ namespace EliteParse.Repository {
             return expeditions.ToList();
         }
 
-        public void Save(Expedition entity) {
-            throw new NotImplementedException();
-        }
-
         public async Task<Expedition> GetOneById(string id) {
             throw new NotImplementedException();
         }
@@ -51,5 +47,8 @@ namespace EliteParse.Repository {
             throw new NotImplementedException();
         }
 
+        async Task<Expedition> IRepository<Expedition>.Save(Expedition entity) {
+            return new Expedition();
+        }
     }
 }

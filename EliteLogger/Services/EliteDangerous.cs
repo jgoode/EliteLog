@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Management;
 using System.IO;
-using EDDiscovery.DB;
+//using EDDiscovery.DB;
 using Newtonsoft.Json.Linq;
 
 
-namespace EDDiscovery2
+namespace EliteLogger.Services
 {
     public enum EDGovernment
     {
@@ -217,10 +217,10 @@ Trinkets_Of_Hidden_Fortune,
             {
                 EDRunning = false;
 
-                SQLiteDBClass db = new SQLiteDBClass();
+                //SQLiteDBClass db = new SQLiteDBClass();
 
-                if (EDDirectory==null || EDDirectory.Equals(""))
-                    EDDirectory = db.GetSettingString("EDDirectory", "");
+                //if (EDDirectory==null || EDDirectory.Equals(""))
+                //    EDDirectory = db.GetSettingString("EDDirectory", "");
             }
             else
             {
@@ -238,18 +238,18 @@ Trinkets_Of_Hidden_Fortune,
                     EDFileName = processes[0].MainModule.FileName;
                     EDDirectory = Path.GetDirectoryName(EDFileName);
 
-                    SQLiteDBClass db = new SQLiteDBClass();
+                    //SQLiteDBClass db = new SQLiteDBClass();
 
-                    if (EDDirectory.Contains("PUBLIC_TEST_SERVER")) // BETA
-                    {
-                        db.PutSettingString("EDDirectoryBeta", EDDirectory);
-                        Beta = true;
-                    }
-                    else
-                    {
-                        Beta = false;
-                        db.PutSettingString("EDDirectory", EDDirectory);
-                    }
+                    //if (EDDirectory.Contains("PUBLIC_TEST_SERVER")) // BETA
+                    //{
+                    //    db.PutSettingString("EDDirectoryBeta", EDDirectory);
+                    //    Beta = true;
+                    //}
+                    //else
+                    //{
+                    //    Beta = false;
+                    //    db.PutSettingString("EDDirectory", EDDirectory);
+                    //}
                     
                 }
 
