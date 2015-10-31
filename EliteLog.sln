@@ -30,6 +30,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDDiscovery", "..\EDDiscove
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteService", "EliteService\EliteService.csproj", "{F323D481-D1BE-4090-A0B6-0136E64D6912}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteServiceTest", "EliteServiceTest\EliteServiceTest.csproj", "{78B2B5E1-1656-4AF2-A406-7B33B30B926A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteModels", "EliteModels\EliteModels.csproj", "{8C3BF435-E9DF-4A33-82E4-87139E678BB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,14 @@ Global
 		{F323D481-D1BE-4090-A0B6-0136E64D6912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F323D481-D1BE-4090-A0B6-0136E64D6912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F323D481-D1BE-4090-A0B6-0136E64D6912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B2B5E1-1656-4AF2-A406-7B33B30B926A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B2B5E1-1656-4AF2-A406-7B33B30B926A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B2B5E1-1656-4AF2-A406-7B33B30B926A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B2B5E1-1656-4AF2-A406-7B33B30B926A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3BF435-E9DF-4A33-82E4-87139E678BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3BF435-E9DF-4A33-82E4-87139E678BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3BF435-E9DF-4A33-82E4-87139E678BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3BF435-E9DF-4A33-82E4-87139E678BB7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
