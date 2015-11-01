@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteParse.Models {
-    public class SystemPointer {
+namespace EliteModels {
+    public class SystemPointer: IEntity {
         public string ObjectId { get; set; }
         public string Expedition { get; set; }
         public DateTime CreatedAt { get; set; }

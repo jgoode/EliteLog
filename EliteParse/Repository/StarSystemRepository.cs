@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EliteParse.Models;
+using EliteModels;
+using Repository;
 using Parse;
 using EliteParse.Mappers;
 
@@ -15,6 +16,14 @@ namespace EliteParse.Repository {
     /// </summary>
     public class StarSystemRepository : IStarSystemRepository {
         private Expedition _expedition;
+
+        public Expedition Expedition { get { return _expedition; } set { _expedition = value; } }
+
+        /// <summary>
+        /// Empty argument constructor
+        /// </summary>
+        public StarSystemRepository() {
+        }
 
         /// <summary>
         /// Constructor for StarSystemRepository Instance. Requires 

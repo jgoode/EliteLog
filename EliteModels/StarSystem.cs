@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteParse.Models {
+namespace EliteModels {
     /// <summary>
     /// StarSystem Entity
     /// </summary>

@@ -51,15 +51,7 @@
     <Compile Include="Mappers\ExpeditionMapper.cs" />
     <Compile Include="Mappers\StarSystemMapper.cs" />
     <Compile Include="Mappers\SystemPointerMapper.cs" />
-    <Compile Include="Models\Expedition.cs" />
-    <Compile Include="Models\IEntity.cs" />
-    <Compile Include="Models\StarSystem.cs" />
-    <Compile Include="Models\SystemPointer.cs" />
     <Compile Include="Repository\ExpeditionRespository.cs" />
-    <Compile Include="Repository\IExpeditionRepository.cs" />
-    <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IStarSystemRepository.cs" />
-    <Compile Include="Repository\ISystemPointerRepository.cs" />
     <Compile Include="Repository\StarSystemRepository.cs" />
     <Compile Include="Repository\SystemPointerRepository.cs" />
     <Compile Include="Services\EliteParseService.cs" />
@@ -67,6 +59,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EliteModels\EliteModels.csproj">
+      <Project>{8c3bf435-e9df-4a33-82e4-87139e678bb7}</Project>
+      <Name>EliteModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{5be04431-7d4e-44dd-842a-21819c0220ad}</Project>
+      <Name>Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

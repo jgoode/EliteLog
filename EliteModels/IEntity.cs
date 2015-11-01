@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteParse.Models {
+namespace EliteModels {
     /// <summary>
-    /// Interface for all EliteLog entities
+    /// Interface for all entities
     /// </summary>
     public interface IEntity {
     }

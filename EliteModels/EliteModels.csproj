@@ -40,8 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expedition.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="NetLogFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StarSystem.cs" />
     <Compile Include="SystemClass.cs" />
+    <Compile Include="SystemPointer.cs" />
     <Compile Include="SystemPosition.cs" />
   </ItemGroup>
   <ItemGroup>

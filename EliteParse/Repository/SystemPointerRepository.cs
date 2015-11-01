@@ -11,6 +11,14 @@ namespace EliteParse.Repository {
     public class SystemPointerRepository : ISystemPointerRepository {
         private Expedition _expedition;
 
+        public Expedition Expedition { get { return _expedition; } set { _expedition = value; } }
+
+        /// <summary>
+        /// Empty argument constructor
+        /// </summary>
+        public SystemPointerRepository() {
+        }
+        
         public SystemPointerRepository(Expedition expedition) {
             _expedition = expedition;
         }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Parse;
 
-namespace EliteParse.Repository {
+
+namespace Repository {
     /// <summary>
     /// Interface for all Repository classes
     /// </summary>
-    /// <typeparam name="IEntity">IEntity for mapped Parse objects</typeparam>
+    /// <typeparam name="IEntity">IEntity for mapped entity objects</typeparam>
     public interface IRepository<IEntity> {
         Task<IEntity> Save(IEntity entity);
         Task<IList<IEntity>> GetAll();

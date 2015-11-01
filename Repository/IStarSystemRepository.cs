@@ -1,12 +1,12 @@
-﻿using EliteParse.Models;
-using Parse;
+﻿using EliteModels;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteParse.Repository {
+namespace Repository {
     public interface IStarSystemRepository : IRepository<StarSystem> {
 
     }
