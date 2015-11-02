@@ -12,7 +12,7 @@ namespace EliteService {
         private IExpeditionRepository _expeditionRepository;
         private IStarSystemRepository _starSystemRepository;
         private ISystemPointerRepository _systemPointerRepository;
-        private Expedition _currentExpedition;
+        private CurrentSystem _currentSystem;
         private User _user;
 
         public ParsePersistentStore(User user) {
@@ -39,8 +39,29 @@ namespace EliteService {
             throw new NotImplementedException();
         }
         
-        public async Task<StarSystem> AddNewStarSystem(StarSystem starSystem) {
-            throw new NotImplementedException();
+        public async Task<CurrentSystem> AddNewStarSystem(SystemPosition ps) {
+            if (null == _currentSystem) {
+                var exp = await GetCurrentExpedition();
+            } 
+
+            var ss = new StarSystem();
+            ss.Name = ps.Name;
+            _currentSystem.StarSystem = ss;
+
+            return _currentSystem;
+
+            //var sys = await _starSystemRepository.Save(ss);
+            ////LogText(string.Format("{0}: Adding system: {1}", DateTime.Now, ps.Name));
+            //if (_currentSystem.SystemPointer == null) {
+
+            //} else {
+
+            //}
+            //var current = _systemPointer.Get<string>("currentObjectId"); ;
+            //_systemPointer["lastObjectId"] = current;
+            //_systemPointer["currentObjectId"] = sys.ObjectId;
+            //_systemPointer = await _systemPointerRepository.Save(_systemPointer);
+
         }
 
         public async Task<IEnumerable<Expedition>> GetAllExpeditions() {
@@ -48,8 +69,12 @@ namespace EliteService {
         }
 
         public async Task<Expedition> GetCurrentExpedition() {
-            _currentExpedition = await _expeditionRepository.GetCurrent(_user.UserName);
-            return _currentExpedition;
+            Expedition currentExpedition = await _expeditionRepository.GetCurrent(_user.UserName);
+            if (_currentSystem == null) {
+                _currentSystem = new CurrentSystem();
+                _currentSystem.Expedition = currentExpedition;
+            }
+            return currentExpedition;
         }
 
         public async Task<IEnumerable<Expedition>> GetSystemsByExpedition(Expedition expedition) {

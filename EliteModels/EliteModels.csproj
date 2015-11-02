@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurrentSystem.cs" />
     <Compile Include="Expedition.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="NetLogFileInfo.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="SystemClass.cs" />
     <Compile Include="SystemPointer.cs" />
     <Compile Include="SystemPosition.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\Support.cs" />

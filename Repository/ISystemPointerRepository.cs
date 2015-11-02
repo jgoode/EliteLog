@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EliteParse.Repository {
+namespace Repository {
     public interface ISystemPointerRepository : IRepository<SystemPointer> {
         Task<ParseObject> GetCurrent();
         Task<ParseObject> Save(ParseObject po);

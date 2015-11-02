@@ -1,4 +1,4 @@
-﻿using EliteParse.Models;
+﻿using EliteModels;
 using EliteParse.Repository;
 using Parse;
 using System;

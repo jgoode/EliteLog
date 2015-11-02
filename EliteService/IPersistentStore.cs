@@ -11,7 +11,7 @@ namespace EliteService {
         Task<Expedition> GetCurrentExpedition();
         Task<IEnumerable<Expedition>> GetAllExpeditions();
         Task<IEnumerable<Expedition>> GetSystemsByExpedition(Expedition expedition);
-        Task<StarSystem> AddNewStarSystem(StarSystem starSystem);
+        Task<CurrentSystem> AddNewStarSystem(SystemPosition ps);
         Task<Dictionary<Expedition, List<StarSystem>>> GetExpeditionStarSystems();
 
     }

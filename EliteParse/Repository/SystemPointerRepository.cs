@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EliteParse.Models;
+using EliteModels;
 using Parse;
 using EliteParse.Mappers;
+using Repository;
 
 namespace EliteParse.Repository {
     public class SystemPointerRepository : ISystemPointerRepository {

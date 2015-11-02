@@ -1,6 +1,6 @@
 ﻿using EliteLogger.Services;
-using EliteParse.Models;
-using EliteParse.Repository;
+using EliteModels;
+using Repository;
 using Parse;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using EliteParse.Repository;
 
 namespace EliteLogger {
     public partial class Form1 : Form {
-        public NetLogClass netlog = new NetLogClass();
+        //public NetLogClass netlog = new NetLogClass();
         public string DataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Frontier_Developments\\Products";
         public List<SystemPosition> visitedSystems = new List<SystemPosition>();
         private Dictionary<string, NetLogFileInfo> netlogfiles = new Dictionary<string, NetLogFileInfo>();
@@ -74,7 +75,7 @@ namespace EliteLogger {
 
         internal void NewPosition(object source) {
             try {
-                string name = netlog.visitedSystems.Last().Name;
+                //string name = netlog.visitedSystems.Last().Name;
                 //Invoke((MethodInvoker)delegate {
                 //    LogText("Arrived to system: ");
                 //    SystemClass sys1 = SystemData.GetSystem(name);

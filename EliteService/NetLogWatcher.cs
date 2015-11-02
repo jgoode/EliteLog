@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 using EliteModels;
 
 namespace EliteService {
+
+    public class NetLogWatcherEventArgs : EventArgs {
+        public CurrentSystem CurrentSystem { get; set; }
+        public DateTime TimeReached { get; set; }
+    }
+
     public class NetLogWatcher : INetLogWatcher {
         public NetLogWatcherStatus Status { get; private set; }
         public FileSystemWatcher Watcher { get; private set; }
@@ -14,14 +20,27 @@ namespace EliteService {
 
         private Dictionary<string, NetLogFileInfo> _netlogfiles;
         private NetLogFileInfo _lastnfi = null;
+        private IPersistentStore _persistentStore;
+
+
+        public event EventHandler<NetLogWatcherEventArgs> SystemFound;
 
         public NetLogWatcher(IPersistentStore persistentStore) {
-            Status = NetLogWatcherStatus.Initialized;
+            if (persistentStore == null) throw new ArgumentNullException("persistentStore");
+
+            _persistentStore = persistentStore;
             Watcher = new FileSystemWatcher();
             VisitedSystems = new List<SystemPosition>();
             _netlogfiles = new Dictionary<string, NetLogFileInfo>();
             Watcher.Changed += Watcher_Changed;
+            Status = NetLogWatcherStatus.Initialized;
+        }
 
+        protected virtual void OnSystemFound(NetLogWatcherEventArgs e) {
+            EventHandler<NetLogWatcherEventArgs> handler = SystemFound;
+            if (handler != null) {
+                handler(this, e);
+            }
         }
 
         private async void Watcher_Changed(object sender, FileSystemEventArgs e) {
@@ -31,6 +50,8 @@ namespace EliteService {
         }
 
         private async Task<int> ParseFile(FileInfo fileInfo) {
+            if (fileInfo == null) throw new ArgumentNullException("fileInfo");
+
             int count = 0, nrsystems = VisitedSystems.Count;
             try {
                 using (Stream fs = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
@@ -50,6 +71,9 @@ namespace EliteService {
         }
 
         private async Task<int> ReadData(FileInfo fileInfo, StreamReader sr) {
+            if (fileInfo == null) throw new ArgumentNullException("fileInfo");
+            if (sr == null) throw new ArgumentNullException("sr");
+
             DateTime gammastart = new DateTime(2014, 11, 22, 13, 00, 00);
             var count = 0;
             DateTime filetime = DateTime.Now.AddDays(-500);
@@ -108,8 +132,21 @@ namespace EliteService {
             return count;
         }
 
-        private Task AddNewSystem(SystemPosition ps) {
-            throw new NotImplementedException();
+        private async Task AddNewSystem(SystemPosition ps) {
+            if (ps == null) throw new ArgumentNullException("ps");
+
+            CurrentSystem ss = await _persistentStore.AddNewStarSystem(ps);
+            var args = new NetLogWatcherEventArgs();
+            args.CurrentSystem = ss;
+            OnSystemFound(args);
+
+            //ss.Name = ps.Name;
+            //var sys = await _starSystemRepository.Save(ss);
+            //LogText(string.Format("{0}: Adding system: {1}", DateTime.Now, ps.Name));
+            //var current = _systemPointer.Get<string>("currentObjectId"); ;
+            //_systemPointer["lastObjectId"] = current;
+            //_systemPointer["currentObjectId"] = sys.ObjectId;
+            //_systemPointer = await _systemPointerRepository.Save(_systemPointer);
         }
 
         /// <summary>

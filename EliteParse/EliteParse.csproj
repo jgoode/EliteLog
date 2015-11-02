@@ -51,6 +51,7 @@
     <Compile Include="Mappers\ExpeditionMapper.cs" />
     <Compile Include="Mappers\StarSystemMapper.cs" />
     <Compile Include="Mappers\SystemPointerMapper.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Repository\ExpeditionRespository.cs" />
     <Compile Include="Repository\StarSystemRepository.cs" />
     <Compile Include="Repository\SystemPointerRepository.cs" />
