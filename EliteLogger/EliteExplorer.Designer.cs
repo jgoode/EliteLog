@@ -28,6 +28,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Log = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -52,7 +53,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Log = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -112,6 +112,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Log";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // Log
+            // 
+            this.Log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Log.Location = new System.Drawing.Point(3, 3);
+            this.Log.Name = "Log";
+            this.Log.Size = new System.Drawing.Size(430, 94);
+            this.Log.TabIndex = 0;
+            this.Log.Text = "";
             // 
             // tableLayoutPanel1
             // 
@@ -363,15 +372,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "System Name";
             // 
-            // Log
-            // 
-            this.Log.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Log.Location = new System.Drawing.Point(3, 3);
-            this.Log.Name = "Log";
-            this.Log.Size = new System.Drawing.Size(430, 94);
-            this.Log.TabIndex = 0;
-            this.Log.Text = "";
-            // 
             // EliteExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,6 +384,7 @@
             this.Name = "EliteExplorer";
             this.Text = "Elite Expedition Log";
             this.Load += new System.EventHandler(this.EliteExplorer_Load);
+            this.Shown += new System.EventHandler(this.EliteExplorer_Shown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

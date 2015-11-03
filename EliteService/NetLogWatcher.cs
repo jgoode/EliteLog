@@ -10,20 +10,22 @@ namespace EliteService {
 
     public class NetLogWatcherEventArgs : EventArgs {
         public CurrentSystem CurrentSystem { get; set; }
-        public DateTime TimeReached { get; set; }
     }
+
+    public delegate void NetLogWatcherHandler(object source);
 
     public class NetLogWatcher : INetLogWatcher {
         public NetLogWatcherStatus Status { get; private set; }
         public FileSystemWatcher Watcher { get; private set; }
         public List<SystemPosition> VisitedSystems { get; private set; }
+        public CurrentSystem CurrentSystem { get; set; }
 
         private Dictionary<string, NetLogFileInfo> _netlogfiles;
         private NetLogFileInfo _lastnfi = null;
         private IPersistentStore _persistentStore;
 
-
-        public event EventHandler<NetLogWatcherEventArgs> SystemFound;
+        public event NetLogWatcherHandler OnNewPosition;
+        //public event EventHandler<NetLogWatcherEventArgs> SystemFound;
 
         public NetLogWatcher(IPersistentStore persistentStore) {
             if (persistentStore == null) throw new ArgumentNullException("persistentStore");
@@ -36,12 +38,12 @@ namespace EliteService {
             Status = NetLogWatcherStatus.Initialized;
         }
 
-        protected virtual void OnSystemFound(NetLogWatcherEventArgs e) {
-            EventHandler<NetLogWatcherEventArgs> handler = SystemFound;
-            if (handler != null) {
-                handler(this, e);
-            }
-        }
+        //protected virtual void OnSystemFound(NetLogWatcherEventArgs e) {
+        //    EventHandler<NetLogWatcherEventArgs> handler = SystemFound;
+        //    if (handler != null) {
+        //        handler(this, e);
+        //    }
+        //}
 
         private async void Watcher_Changed(object sender, FileSystemEventArgs e) {
             if (e.ChangeType == System.IO.WatcherChangeTypes.Changed) {
@@ -135,10 +137,8 @@ namespace EliteService {
         private async Task AddNewSystem(SystemPosition ps) {
             if (ps == null) throw new ArgumentNullException("ps");
 
-            CurrentSystem ss = await _persistentStore.AddNewStarSystem(ps);
-            var args = new NetLogWatcherEventArgs();
-            args.CurrentSystem = ss;
-            OnSystemFound(args);
+            CurrentSystem = await _persistentStore.AddNewStarSystem(ps);
+            OnNewPosition(this);
 
             //ss.Name = ps.Name;
             //var sys = await _starSystemRepository.Save(ss);
