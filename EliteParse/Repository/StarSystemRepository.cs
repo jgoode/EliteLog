@@ -38,14 +38,14 @@ namespace EliteParse.Repository {
         /// Retrieves all StarSystems
         /// </summary>
         /// <returns>List of StarSystem instances</returns>
-        public async Task<IList<StarSystem>> GetAll() {
+        public async Task<IEnumerable<StarSystem>> GetAll() {
             var n = 1000;
             var s = 0;
             var query = ParseObject.GetQuery("StarSystem");
             query.Limit(n).Skip(s).OrderBy("createdAt");
             IEnumerable<ParseObject> items = await query.FindAsync();
             var starSystems = items.ToList().Select(p => StarSystemMapper.Map(p));
-            return starSystems.ToList();
+            return starSystems;
         }
 
         /// <summary>
@@ -96,6 +96,14 @@ namespace EliteParse.Repository {
             entity.CreatedAt = starSystem.CreatedAt.Value;
             entity.UpdatedAt = starSystem.UpdatedAt.Value;
             return entity;
+        }
+
+        public Task<StarSystem> Udpate(StarSystem entity) {
+            throw new NotImplementedException();
+        }
+
+        public Task<StarSystem> Insert(StarSystem entity) {
+            throw new NotImplementedException();
         }
     }
 }

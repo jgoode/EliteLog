@@ -34,8 +34,10 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.AddExpeditionButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ExpeditionComboBox = new System.Windows.Forms.ComboBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -53,8 +55,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.AddExpeditionButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -180,12 +180,31 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.AddExpeditionButton);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.ExpeditionComboBox);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(283, 87);
             this.panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(171, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "e";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // AddExpeditionButton
+            // 
+            this.AddExpeditionButton.Location = new System.Drawing.Point(147, 20);
+            this.AddExpeditionButton.Name = "AddExpeditionButton";
+            this.AddExpeditionButton.Size = new System.Drawing.Size(23, 23);
+            this.AddExpeditionButton.TabIndex = 2;
+            this.AddExpeditionButton.Text = "+";
+            this.AddExpeditionButton.UseVisualStyleBackColor = true;
+            this.AddExpeditionButton.Click += new System.EventHandler(this.AddExpeditionButton_Click);
             // 
             // label1
             // 
@@ -196,13 +215,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Expedition";
             // 
-            // comboBox1
+            // ExpeditionComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(3, 21);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(141, 21);
-            this.comboBox1.TabIndex = 0;
+            this.ExpeditionComboBox.FormattingEnabled = true;
+            this.ExpeditionComboBox.Location = new System.Drawing.Point(3, 21);
+            this.ExpeditionComboBox.Name = "ExpeditionComboBox";
+            this.ExpeditionComboBox.Size = new System.Drawing.Size(141, 21);
+            this.ExpeditionComboBox.TabIndex = 0;
             // 
             // tabPage4
             // 
@@ -376,25 +395,6 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "System Name";
             // 
-            // AddExpeditionButton
-            // 
-            this.AddExpeditionButton.Location = new System.Drawing.Point(147, 20);
-            this.AddExpeditionButton.Name = "AddExpeditionButton";
-            this.AddExpeditionButton.Size = new System.Drawing.Size(23, 23);
-            this.AddExpeditionButton.TabIndex = 2;
-            this.AddExpeditionButton.Text = "+";
-            this.AddExpeditionButton.UseVisualStyleBackColor = true;
-            this.AddExpeditionButton.Click += new System.EventHandler(this.AddExpeditionButton_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(171, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "e";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // EliteExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,7 +441,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ExpeditionComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.ListBox listBox1;

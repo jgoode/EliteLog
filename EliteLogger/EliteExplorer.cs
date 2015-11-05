@@ -19,9 +19,11 @@ namespace EliteLogger {
     public partial class EliteExplorer : Form {
         private NetLogWatcher _watcher;
         private IPersistentStore _persistentStore;
-        private User _user;
+        private static User _user;
+        private static IEnumerable<Expedition> _expeditions;
 
         private static RichTextBox static_richTextBox;
+        private static ComboBox static_expedition_combo;
 
         public EliteExplorer() {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace EliteLogger {
             var netKey = Environment.GetEnvironmentVariable("elitelog_netkey");
             ParseClient.Initialize("oZ5uASGFBuliW7gkydvGPoKfB0ePMcS2pnsrmIyp", "kXDwODYgrhsfAd39x0LEmak3a204B0qWuNeCpR5k");
             static_richTextBox = Log;
+            static_expedition_combo = ExpeditionComboBox;
         }
 
         private async void EliteExplorer_Load(object sender, EventArgs e) {
@@ -112,28 +115,58 @@ namespace EliteLogger {
             //});
 
             Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Red);
-
+            Invoke(new Action(RefreshExpeditionDropDown));
 
         }
 
-        static void AddExpeditionToDropDown(Expedition expedition) {
-            
+        static async void RefreshExpeditionDropDown() {
+            if (null == _expeditions) {
+                var persistentStore = new ParsePersistentStore(_user);
+                _expeditions = await persistentStore.GetAllExpeditions();
+            }
+            static_expedition_combo.DataSource = _expeditions.ToList();
+            static_expedition_combo.DisplayMember = "Name";
+            var currentExpedition = _expeditions.Where(a => a.Current).FirstOrDefault();
+            int itemIndex = -1;
+            for (int index = 0; index < static_expedition_combo.Items.Count; index++) {
+                var exp = (Expedition)static_expedition_combo.Items[index];
+                if (exp.ObjectId == currentExpedition.ObjectId) {
+                    itemIndex = index;
+                    break;
+                }
+            }
+            static_expedition_combo.SelectedIndex = itemIndex;
         }
 
         private async void AddExpeditionButton_Click(object sender, EventArgs e) {
-            var addExpeditionForm = new AddExpedition(ExpeditionFormType.Add);
+            var addExpeditionForm = new AddExpedition(ExpeditionFormType.Add, _user);
             if (addExpeditionForm.ShowDialog() == DialogResult.OK) {
-                var expedition = new Expedition();
-                expedition.Name = addExpeditionForm.ExpeditionName;
-                expedition.Description = addExpeditionForm.Description;
-                expedition.StartDate = addExpeditionForm.StartDate;
-                expedition.EndDate = addExpeditionForm.EndDate;
-                expedition.StartSystem = addExpeditionForm.StartSystem;
-                expedition.EndSystem = addExpeditionForm.EndSystem;
-                expedition.User = _user.UserName;
+                if (null == addExpeditionForm.Expedition) return;
 
+                var expedition = addExpeditionForm.Expedition;
+
+                var match = (from p in _expeditions
+                             where p.Name == expedition.Name
+                             select p).FirstOrDefault();
+
+                if (match != null) return;
                 var persistentStore = new ParsePersistentStore(_user);
-                await persistentStore.SaveExpedition(expedition);
+
+                List<Expedition> temp = new List<Expedition>();
+                foreach(var exp in _expeditions) {
+                    exp.Current = false;
+                    temp.Add(exp);
+                }
+                
+                await persistentStore.ClearExpeditionCurrentFlags();
+                var expSaved = await persistentStore.InsertExpedition(expedition);
+                temp.Add(expedition);
+
+                _expeditions = temp;
+
+                Invoke(new Action<string, Color>(LogText), string.Format("Added expedition {0} ({1})...", expSaved.Name, expSaved.ObjectId), Color.Red);
+                Invoke(new Action(RefreshExpeditionDropDown));
+
             }
         }
     }

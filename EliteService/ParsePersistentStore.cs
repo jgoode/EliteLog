@@ -65,7 +65,7 @@ namespace EliteService {
         }
 
         public async Task<IEnumerable<Expedition>> GetAllExpeditions() {
-            throw new NotImplementedException();
+            return await _expeditionRepository.GetAll();
         }
 
         public async Task<Expedition> GetCurrentExpedition() {
@@ -81,8 +81,20 @@ namespace EliteService {
             throw new NotImplementedException();
         }
 
-        public async Task<Expedition> SaveExpedition(Expedition expedition) {
-            return await _expeditionRepository.Save(expedition);
+        public async Task<Expedition> InsertExpedition(Expedition expedition) {
+            return await _expeditionRepository.Insert(expedition);
+        }
+
+        public Task<Expedition> GetByExpeditionName(string name) {
+            throw new NotImplementedException();
+        }
+
+        public Task<Expedition> UpdateExpedition(Expedition a) {
+            throw new NotImplementedException();
+        }
+
+        public async Task ClearExpeditionCurrentFlags() {
+            await _expeditionRepository.UnflagCurrentExpeditions();
         }
     }
 }

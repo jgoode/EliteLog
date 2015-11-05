@@ -230,7 +230,7 @@ namespace EliteLogger {
         private async Task AddNewSystem(SystemPosition ps) {
             StarSystem ss = new StarSystem();
             ss.Name = ps.Name;
-            var sys = await _starSystemRepository.Save(ss);
+            var sys = await _starSystemRepository.Insert(ss);
             LogText(string.Format("{0}: Adding system: {1}", DateTime.Now, ps.Name));
             var current = _systemPointer.Get<string>("currentObjectId"); ;
             _systemPointer["lastObjectId"] = current;

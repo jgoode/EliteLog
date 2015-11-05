@@ -11,8 +11,10 @@ namespace Repository {
     /// </summary>
     /// <typeparam name="IEntity">IEntity for mapped entity objects</typeparam>
     public interface IRepository<IEntity> {
-        Task<IEntity> Save(IEntity entity);
-        Task<IList<IEntity>> GetAll();
+        //Task<IEntity> Save(IEntity entity);
+        Task<IEntity> Udpate(IEntity entity);
+        Task<IEntity> Insert(IEntity entity);
+        Task<IEnumerable<IEntity>> GetAll();
         Task<IEntity> GetOneById(string id);
         Task<IEntity> GetByName(string name);
     }

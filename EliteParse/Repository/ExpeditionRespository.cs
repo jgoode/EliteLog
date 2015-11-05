@@ -22,11 +22,30 @@ namespace EliteParse.Repository {
             return expedition;
         }
 
-        public async Task<IList<Expedition>> GetAll() {
-            var query = ParseObject.GetQuery("Expedition");
-            IEnumerable<ParseObject> items = await query.FindAsync();
+        public async Task<IEnumerable<Expedition>> GetAll() {
+            var items = await GetAllParseExpeditions();
             var expeditions = items.ToList().Select(p => ExpeditionMapper.Map(p));
-            return expeditions.ToList();
+            return expeditions;
+        }
+
+        public async Task<IEnumerable<ParseObject>> GetAllParseExpeditions() {
+            var query = ParseObject.GetQuery("Expedition");
+            return await query.FindAsync();
+        }
+
+        public async Task<IEnumerable<ParseObject>> GetAllParseCurrentExpeditions() {
+            var query = ParseObject.GetQuery("Expedition")
+                .WhereEqualTo("current", 1);
+               
+            return await query.FindAsync();
+        }
+
+        public async Task UnflagCurrentExpeditions() {
+            IEnumerable<ParseObject> expeditions = await GetAllParseCurrentExpeditions();
+            expeditions.ToList().ForEach(async p => {
+                p["current"] = 0;
+                await p.SaveAsync();
+            });
         }
 
         public async Task<IList<Expedition>> GetByUser(string user) {
@@ -48,17 +67,26 @@ namespace EliteParse.Repository {
             throw new NotImplementedException();
         }
 
-        async Task<Expedition> IRepository<Expedition>.Save(Expedition entity) {
+        async Task<Expedition> IRepository<Expedition>.Insert(Expedition entity) {
             ParseObject expedition = new ParseObject("Expedition");
             expedition["name"] = entity.Name;
             expedition["description"] = entity.Description;
             expedition["beginDate"] = entity.StartDate;
             expedition["endDate"] = entity.EndDate;
             expedition["startSystem"] = entity.StartSystem;
-            expedition["endSystem"] = entity.EndSystem;
+            expedition["endSystem"] = "none";
             expedition["username"] = entity.User;
+            expedition["current"] = entity.Current ? 1 : 0;
+            expedition["profit"] = 0;
+            expedition["totalDistance"] = 0;
+            expedition["scanCountTotal"] = 0;
+            expedition["systemVisitCount"] = 0;
             await expedition.SaveAsync(); 
             return ExpeditionMapper.Map(expedition);
+        }
+
+        public Task<Expedition> Udpate(Expedition entity) {
+            throw new NotImplementedException();
         }
     }
 }

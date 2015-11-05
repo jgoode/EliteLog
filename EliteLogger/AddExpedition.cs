@@ -1,4 +1,5 @@
-﻿using EliteModels.Enums;
+﻿using EliteModels;
+using EliteModels.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,17 +12,25 @@ using System.Windows.Forms;
 
 namespace EliteLogger {
     public partial class AddExpedition : Form {
+        private readonly User _user;
 
-        public string ExpeditionName { get { return NameTextBox.Text; } }
-        public string Description { get { return DescriptionTextBox.Text; } }
-        public DateTime StartDate { get { return StartDatePicker.Value.Date; } }
-        public DateTime EndDate { get { return EndDatePicker.Value.Date; } }
-        public string StartSystem { get { return StartSystemTextBox.Text; } }
-        public string EndSystem { get { return EndSystemTextBox.Text; } }
+        public Expedition Expedition { get {
+                var expedition = new Expedition();
+                expedition.Name = NameTextBox.Text;
+                expedition.Description = DescriptionTextBox.Text;
+                expedition.StartDate = StartDatePicker.Value.Date;
+                expedition.EndDate = EndDatePicker.Value.Date;
+                expedition.StartSystem = StartSystemTextBox.Text;
+                expedition.EndSystem = EndSystemTextBox.Text;
+                expedition.User = _user.UserName;
+                expedition.Current = true;
+                return expedition;
+            } }
 
-        public AddExpedition(ExpeditionFormType formType) {
+        public AddExpedition(ExpeditionFormType formType, User user) {
             InitializeComponent();
 
+            _user = user;
             if (formType == ExpeditionFormType.Add) {
                 this.Text = "Add Expedition";
             } else {

@@ -24,14 +24,14 @@ namespace EliteParse.Repository {
             _expedition = expedition;
         }
 
-        public async Task<IList<SystemPointer>> GetAll() {
+        public async Task<IEnumerable<SystemPointer>> GetAll() {
             var query = from item in ParseObject.GetQuery("SystemPointer")
                         where  item.Get<string>("expedition") == _expedition.ObjectId
                         select item;
 
             var items = await query.FindAsync();
             IEnumerable<SystemPointer> pointers = items.ToList().Select(p => SystemPointerMapper.Map(p));
-            return pointers.ToList();
+            return pointers;
         }
 
         public async Task<ParseObject> GetCurrent() {
@@ -67,6 +67,14 @@ namespace EliteParse.Repository {
             entity.CreatedAt = systemPointer.CreatedAt.Value;
             entity.UpdatedAt = systemPointer.UpdatedAt.Value;
             return entity;
+        }
+
+        public Task<SystemPointer> Udpate(SystemPointer entity) {
+            throw new NotImplementedException();
+        }
+
+        public Task<SystemPointer> Insert(SystemPointer entity) {
+            throw new NotImplementedException();
         }
     }
 }
