@@ -10,6 +10,7 @@ namespace EliteModels {
     /// Expedition Entity
     /// </summary>
     public class Expedition : IEntity{
+        public int Id { get; set; }
         public string ObjectId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -23,5 +24,7 @@ namespace EliteModels {
         public double TotalDistance { get; set; }
         public bool Current { get; set; }
         public string User { get; set; }
+
+        public List<StarSystem> StarSystems { get; set; }
     }
 }

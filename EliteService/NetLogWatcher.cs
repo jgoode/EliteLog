@@ -23,6 +23,7 @@ namespace EliteService {
         private Dictionary<string, NetLogFileInfo> _netlogfiles;
         private NetLogFileInfo _lastnfi = null;
         private IPersistentStore _persistentStore;
+        private IPersistentStore _localStore;
 
         public event NetLogWatcherHandler OnNewPosition;
         //public event EventHandler<NetLogWatcherEventArgs> SystemFound;
@@ -37,13 +38,6 @@ namespace EliteService {
             Watcher.Changed += Watcher_Changed;
             Status = NetLogWatcherStatus.Initialized;
         }
-
-        //protected virtual void OnSystemFound(NetLogWatcherEventArgs e) {
-        //    EventHandler<NetLogWatcherEventArgs> handler = SystemFound;
-        //    if (handler != null) {
-        //        handler(this, e);
-        //    }
-        //}
 
         private async void Watcher_Changed(object sender, FileSystemEventArgs e) {
             if (e.ChangeType == System.IO.WatcherChangeTypes.Changed) {

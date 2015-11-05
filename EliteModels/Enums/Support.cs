@@ -180,4 +180,24 @@ namespace EliteModels.Enums {
         EDDB = 4,
         Inhumierer = 5,
     }
+
+    public enum ObjectType {
+        Star = 0,
+        BlackHole,
+        NeutronStar,
+        WhiteDwarf,
+        EarthLike,
+        WaterWorld,
+        MetalRich,
+        HighMetal,
+        Ammonia,
+        Jovian,
+        IcyPlanet,
+        Rocky
+}
+
+    public enum ExpeditionFormType {
+        Add = 0,
+        Edit
+    }
 }

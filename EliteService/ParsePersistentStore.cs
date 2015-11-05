@@ -80,5 +80,9 @@ namespace EliteService {
         public async Task<IEnumerable<Expedition>> GetSystemsByExpedition(Expedition expedition) {
             throw new NotImplementedException();
         }
+
+        public async Task<Expedition> SaveExpedition(Expedition expedition) {
+            return await _expeditionRepository.Save(expedition);
+        }
     }
 }

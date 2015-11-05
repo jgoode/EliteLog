@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteModels", "EliteModels\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{5BE04431-7D4E-44DD-842A-21819C0220AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EliteDB", "EliteDB\EliteDB.csproj", "{D088B8F4-F6DB-4066-B627-E1B9571F57C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,10 @@ Global
 		{5BE04431-7D4E-44DD-842A-21819C0220AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE04431-7D4E-44DD-842A-21819C0220AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE04431-7D4E-44DD-842A-21819C0220AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D088B8F4-F6DB-4066-B627-E1B9571F57C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D088B8F4-F6DB-4066-B627-E1B9571F57C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D088B8F4-F6DB-4066-B627-E1B9571F57C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D088B8F4-F6DB-4066-B627-E1B9571F57C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

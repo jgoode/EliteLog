@@ -1,4 +1,5 @@
 ﻿using EliteModels;
+using EliteModels.Enums;
 using EliteParse.Mappers;
 using EliteService;
 using Parse;
@@ -72,17 +73,13 @@ namespace EliteLogger {
 
         }
 
-
         internal void NewPosition(object source) {
-            Invoke((MethodInvoker)delegate {
-                LogText(_watcher.CurrentSystem.StarSystem.Name);
-            });
+            //Invoke((MethodInvoker)delegate {
+            //    LogText(_watcher.CurrentSystem.StarSystem.Name);
+            //});
+
+            Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Black);
         }
-
-        //private async void _watcher_SystemFound(object sender, NetLogWatcherEventArgs e) {
-        //    await LogText(e.CurrentSystem.StarSystem.Name);
-        //}
-
 
         static void LogText(string text) {
             EliteExplorer.LogText(text, Color.Black);
@@ -110,9 +107,34 @@ namespace EliteLogger {
         }
 
         private void EliteExplorer_Shown(object sender, EventArgs e) {
-            Invoke((MethodInvoker)delegate {
-                EliteExplorer.LogText("Starting file watch...", Color.Red);
-            });
+            //Invoke((MethodInvoker)delegate {
+            //    LogText("Starting file watch...", Color.Red);
+            //});
+
+            Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Red);
+
+
+        }
+
+        static void AddExpeditionToDropDown(Expedition expedition) {
+            
+        }
+
+        private async void AddExpeditionButton_Click(object sender, EventArgs e) {
+            var addExpeditionForm = new AddExpedition(ExpeditionFormType.Add);
+            if (addExpeditionForm.ShowDialog() == DialogResult.OK) {
+                var expedition = new Expedition();
+                expedition.Name = addExpeditionForm.ExpeditionName;
+                expedition.Description = addExpeditionForm.Description;
+                expedition.StartDate = addExpeditionForm.StartDate;
+                expedition.EndDate = addExpeditionForm.EndDate;
+                expedition.StartSystem = addExpeditionForm.StartSystem;
+                expedition.EndSystem = addExpeditionForm.EndSystem;
+                expedition.User = _user.UserName;
+
+                var persistentStore = new ParsePersistentStore(_user);
+                await persistentStore.SaveExpedition(expedition);
+            }
         }
     }
 }

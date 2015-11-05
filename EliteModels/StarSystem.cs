@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EliteModels {
     /// <summary>
     /// StarSystem Entity
     /// </summary>
     public class StarSystem : IEntity {
+        public int Id { get; set; }
         public string ObjectId { get; set; }
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public string ExpeditionId { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public double Z { get; set; }
@@ -37,5 +38,9 @@ namespace EliteModels {
         public bool Refuled { get; set; }
         public double DistanceRunningTotal { get; set; }
         public double ScanCountRunningTotal { get; set; }
+
+        [Required]
+        public Expedition Expedition { get; set; }
+        public List<StarSystemObject> StarSystemObjects { get; set; }
     }
 }

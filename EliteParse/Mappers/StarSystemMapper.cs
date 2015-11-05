@@ -26,7 +26,7 @@ namespace EliteParse.Mappers {
                 DistanceRunningTotal = parse.Get<double>("distanceRT"),
                 DistToNext = parse.Get<double>("distToNext"),
                 EarthLikeCount = parse.Get<int>("earthLikeCount"),
-                ExpeditionId = parse.Get<string>("expedition"),
+                //ExpeditionId = parse.Get<string>("expedition"),
                 HighMetalCount = parse.Get<int>("highMetalCount"),
                 IcyPlanetCount = parse.Get<int>("icyPlanetCount"),
                 JovianCount = parse.Get<int>("jovianCount"),

@@ -49,7 +49,16 @@ namespace EliteParse.Repository {
         }
 
         async Task<Expedition> IRepository<Expedition>.Save(Expedition entity) {
-            return new Expedition();
+            ParseObject expedition = new ParseObject("Expedition");
+            expedition["name"] = entity.Name;
+            expedition["description"] = entity.Description;
+            expedition["beginDate"] = entity.StartDate;
+            expedition["endDate"] = entity.EndDate;
+            expedition["startSystem"] = entity.StartSystem;
+            expedition["endSystem"] = entity.EndSystem;
+            expedition["username"] = entity.User;
+            await expedition.SaveAsync(); 
+            return ExpeditionMapper.Map(expedition);
         }
     }
 }
