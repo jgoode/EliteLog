@@ -14,6 +14,8 @@ namespace EliteService {
         private ISystemPointerRepository _systemPointerRepository;
         private CurrentSystem _currentSystem;
         private User _user;
+        private Expedition _currentExpedition;
+
 
         public ParsePersistentStore(User user) {
             _expeditionRepository = new ExpeditionRespository();
@@ -35,17 +37,28 @@ namespace EliteService {
             get { return _systemPointerRepository; }
         }
 
+        // memory storage of graph
+        public Expedition CurrentExpedition { get { return _currentExpedition; } }
+        public SystemPointer SystPointer { get; set; }
+        public IEnumerable<StarSystem> StarSystems { get; set; }
+
+        public async void SetCurrentExpedition(Expedition expedition) {
+            StarSystems = await GetSystemsByExpedition(_currentExpedition);
+            _currentExpedition = expedition;
+        }
+
         public async Task<Dictionary<Expedition, List<StarSystem>>> GetExpeditionStarSystems() {
             throw new NotImplementedException();
         }
         
         public async Task<CurrentSystem> AddNewStarSystem(SystemPosition ps) {
-            if (null == _currentSystem) {
+            if (false) {
                 var exp = await GetCurrentExpedition();
             } 
 
             var ss = new StarSystem();
             ss.Name = ps.Name;
+            ss.Expedition = CurrentExpedition;
             _currentSystem.StarSystem = ss;
 
             return _currentSystem;
@@ -77,11 +90,12 @@ namespace EliteService {
             return currentExpedition;
         }
 
-        public async Task<IEnumerable<Expedition>> GetSystemsByExpedition(Expedition expedition) {
+        public async Task<IEnumerable<StarSystem>> GetSystemsByExpedition(Expedition expedition) {
             throw new NotImplementedException();
         }
 
         public async Task<Expedition> InsertExpedition(Expedition expedition) {
+
             return await _expeditionRepository.Insert(expedition);
         }
 
@@ -89,7 +103,7 @@ namespace EliteService {
             throw new NotImplementedException();
         }
 
-        public Task<Expedition> UpdateExpedition(Expedition a) {
+        public Task<Expedition> UpdateExpedition(Expedition expedition) {
             throw new NotImplementedException();
         }
 

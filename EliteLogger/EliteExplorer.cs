@@ -18,9 +18,10 @@ using System.Windows.Forms;
 namespace EliteLogger {
     public partial class EliteExplorer : Form {
         private NetLogWatcher _watcher;
-        private IPersistentStore _persistentStore;
+        private static IPersistentStore _persistentStore;
         private static User _user;
         private static IEnumerable<Expedition> _expeditions;
+        private static Expedition _currentExpedition;
 
         private static RichTextBox static_richTextBox;
         private static ComboBox static_expedition_combo;
@@ -77,10 +78,6 @@ namespace EliteLogger {
         }
 
         internal void NewPosition(object source) {
-            //Invoke((MethodInvoker)delegate {
-            //    LogText(_watcher.CurrentSystem.StarSystem.Name);
-            //});
-
             Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Black);
         }
 
@@ -121,8 +118,7 @@ namespace EliteLogger {
 
         static async void RefreshExpeditionDropDown() {
             if (null == _expeditions) {
-                var persistentStore = new ParsePersistentStore(_user);
-                _expeditions = await persistentStore.GetAllExpeditions();
+                _expeditions = await _persistentStore.GetAllExpeditions();
             }
             static_expedition_combo.DataSource = _expeditions.ToList();
             static_expedition_combo.DisplayMember = "Name";
@@ -132,6 +128,8 @@ namespace EliteLogger {
                 var exp = (Expedition)static_expedition_combo.Items[index];
                 if (exp.ObjectId == currentExpedition.ObjectId) {
                     itemIndex = index;
+                    _currentExpedition = exp;
+                    _persistentStore.CurrentExpedition = exp;
                     break;
                 }
             }
@@ -150,7 +148,6 @@ namespace EliteLogger {
                              select p).FirstOrDefault();
 
                 if (match != null) return;
-                var persistentStore = new ParsePersistentStore(_user);
 
                 List<Expedition> temp = new List<Expedition>();
                 foreach(var exp in _expeditions) {
@@ -158,8 +155,8 @@ namespace EliteLogger {
                     temp.Add(exp);
                 }
                 
-                await persistentStore.ClearExpeditionCurrentFlags();
-                var expSaved = await persistentStore.InsertExpedition(expedition);
+                await _persistentStore.ClearExpeditionCurrentFlags();
+                var expSaved = await _persistentStore.InsertExpedition(expedition);
                 temp.Add(expedition);
 
                 _expeditions = temp;

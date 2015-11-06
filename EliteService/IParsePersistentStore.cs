@@ -11,5 +11,6 @@ namespace EliteService {
         IExpeditionRepository ExpeditionRepository { get;  }
         ISystemPointerRepository SystemPointerRepository { get;  }
         IStarSystemRepository StarSystemRepository { get;  }
+
     }
 }
