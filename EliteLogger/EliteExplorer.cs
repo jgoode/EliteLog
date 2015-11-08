@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace EliteLogger {
 
         private static RichTextBox static_richTextBox;
         private static ComboBox static_expedition_combo;
+        private static bool _userSelectsExpedition;
 
         public EliteExplorer() {
             InitializeComponent();
@@ -35,6 +37,61 @@ namespace EliteLogger {
             static_richTextBox = Log;
             static_expedition_combo = ExpeditionComboBox;
         }
+
+        // methods
+        internal void NewPosition(object source) {
+            Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Black);
+        }
+
+        static void LogText(string text) {
+            EliteExplorer.LogText(text, Color.Black);
+        }
+
+        static void LogText(string text, Color color) {
+            try {
+
+                static_richTextBox.SelectionStart = static_richTextBox.TextLength;
+                static_richTextBox.SelectionLength = 0;
+
+                static_richTextBox.SelectionColor = color;
+                static_richTextBox.AppendText(text);
+                static_richTextBox.AppendText("\n");
+                static_richTextBox.SelectionColor = static_richTextBox.ForeColor;
+
+                static_richTextBox.SelectionStart = static_richTextBox.Text.Length;
+                static_richTextBox.SelectionLength = 0;
+                static_richTextBox.ScrollToCaret();
+                static_richTextBox.Refresh();
+            } catch (Exception ex) {
+                Trace.WriteLine("Exception SystemClass: " + ex.Message);
+                Trace.WriteLine("Trace: " + ex.StackTrace);
+            }
+        }
+
+        static async void RefreshExpeditionDropDown() {
+            _userSelectsExpedition = false;
+            if (null == _expeditions) {
+                _expeditions = await _persistentStore.GetAllExpeditions();
+            }
+            static_expedition_combo.DataSource = _expeditions.ToList();
+            static_expedition_combo.DisplayMember = "Name";
+            var currentExpedition = _expeditions.Where(a => a.Current).FirstOrDefault();
+            int itemIndex = -1;
+            for (int index = 0; index < static_expedition_combo.Items.Count; index++) {
+                var exp = (Expedition)static_expedition_combo.Items[index];
+                if (exp.ObjectId == currentExpedition.ObjectId) {
+                    itemIndex = index;
+                    _currentExpedition = exp;
+                    await _persistentStore.SetCurrentExpedition(exp);
+                    LogText(string.Format("Expedition {1} has {0} systems...", _persistentStore.StarSystems.Count(), _currentExpedition.Name), Color.Red);
+                    break;
+                }
+            }
+            static_expedition_combo.SelectedIndex = itemIndex;
+            _userSelectsExpedition = true;
+        }
+
+        // events
 
         private async void EliteExplorer_Load(object sender, EventArgs e) {
             if (ParseUser.CurrentUser != null) {
@@ -77,63 +134,12 @@ namespace EliteLogger {
 
         }
 
-        internal void NewPosition(object source) {
-            Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Black);
-        }
-
-        static void LogText(string text) {
-            EliteExplorer.LogText(text, Color.Black);
-        }
-
-        static void LogText(string text, Color color) {
-            try {
-
-                static_richTextBox.SelectionStart = static_richTextBox.TextLength;
-                static_richTextBox.SelectionLength = 0;
-
-                static_richTextBox.SelectionColor = color;
-                static_richTextBox.AppendText(text);
-                static_richTextBox.AppendText("\n");
-                static_richTextBox.SelectionColor = static_richTextBox.ForeColor;
-
-                static_richTextBox.SelectionStart = static_richTextBox.Text.Length;
-                static_richTextBox.SelectionLength = 0;
-                static_richTextBox.ScrollToCaret();
-                static_richTextBox.Refresh();
-            } catch (Exception ex) {
-                Trace.WriteLine("Exception SystemClass: " + ex.Message);
-                Trace.WriteLine("Trace: " + ex.StackTrace);
-            }
-        }
-
         private void EliteExplorer_Shown(object sender, EventArgs e) {
-            //Invoke((MethodInvoker)delegate {
-            //    LogText("Starting file watch...", Color.Red);
-            //});
 
             Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Red);
+            _userSelectsExpedition = false;
+
             Invoke(new Action(RefreshExpeditionDropDown));
-
-        }
-
-        static async void RefreshExpeditionDropDown() {
-            if (null == _expeditions) {
-                _expeditions = await _persistentStore.GetAllExpeditions();
-            }
-            static_expedition_combo.DataSource = _expeditions.ToList();
-            static_expedition_combo.DisplayMember = "Name";
-            var currentExpedition = _expeditions.Where(a => a.Current).FirstOrDefault();
-            int itemIndex = -1;
-            for (int index = 0; index < static_expedition_combo.Items.Count; index++) {
-                var exp = (Expedition)static_expedition_combo.Items[index];
-                if (exp.ObjectId == currentExpedition.ObjectId) {
-                    itemIndex = index;
-                    _currentExpedition = exp;
-                    _persistentStore.CurrentExpedition = exp;
-                    break;
-                }
-            }
-            static_expedition_combo.SelectedIndex = itemIndex;
         }
 
         private async void AddExpeditionButton_Click(object sender, EventArgs e) {
@@ -157,7 +163,8 @@ namespace EliteLogger {
                 
                 await _persistentStore.ClearExpeditionCurrentFlags();
                 var expSaved = await _persistentStore.InsertExpedition(expedition);
-                temp.Add(expedition);
+                
+                temp.Add(expSaved);
 
                 _expeditions = temp;
 
@@ -165,6 +172,14 @@ namespace EliteLogger {
                 Invoke(new Action(RefreshExpeditionDropDown));
 
             }
+        }
+
+        private async void ExpeditionComboBox_SelectedIndexChanged(object sender, EventArgs e) {
+            if (!_userSelectsExpedition) return;
+            var exp = (Expedition)ExpeditionComboBox.SelectedItem;
+            _currentExpedition = exp;
+            await _persistentStore.SetCurrentExpedition(exp);
+            Invoke(new Action<string, Color>(LogText), string.Format("Expedition {1} has {0} systems...", _persistentStore.StarSystems.Count(), _currentExpedition.Name), Color.Red);
         }
     }
 }

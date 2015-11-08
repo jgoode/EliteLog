@@ -42,14 +42,12 @@ namespace EliteService {
         public SystemPointer SystPointer { get; set; }
         public IEnumerable<StarSystem> StarSystems { get; set; }
 
-        public async void SetCurrentExpedition(Expedition expedition) {
-            StarSystems = await GetSystemsByExpedition(_currentExpedition);
+        public async Task SetCurrentExpedition(Expedition expedition) {
+            var starSystems = await GetSystemsByExpedition(expedition);
+            StarSystems = starSystems;
             _currentExpedition = expedition;
         }
 
-        public async Task<Dictionary<Expedition, List<StarSystem>>> GetExpeditionStarSystems() {
-            throw new NotImplementedException();
-        }
         
         public async Task<CurrentSystem> AddNewStarSystem(SystemPosition ps) {
             if (false) {
@@ -91,7 +89,7 @@ namespace EliteService {
         }
 
         public async Task<IEnumerable<StarSystem>> GetSystemsByExpedition(Expedition expedition) {
-            throw new NotImplementedException();
+            return await _starSystemRepository.GetByExpedition(expedition);
         }
 
         public async Task<Expedition> InsertExpedition(Expedition expedition) {

@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Repository {
     public interface IStarSystemRepository : IRepository<StarSystem> {
-
+        Task<IEnumerable<StarSystem>> GetByExpedition(Expedition expedition);
     }
 }

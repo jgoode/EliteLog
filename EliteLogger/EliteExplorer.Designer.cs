@@ -222,6 +222,7 @@
             this.ExpeditionComboBox.Name = "ExpeditionComboBox";
             this.ExpeditionComboBox.Size = new System.Drawing.Size(141, 21);
             this.ExpeditionComboBox.TabIndex = 0;
+            this.ExpeditionComboBox.SelectedIndexChanged += new System.EventHandler(this.ExpeditionComboBox_SelectedIndexChanged);
             // 
             // tabPage4
             // 

@@ -17,11 +17,10 @@ namespace EliteService {
         Task<IEnumerable<Expedition>> GetAllExpeditions();
         Task<IEnumerable<StarSystem>> GetSystemsByExpedition(Expedition expedition);
         Task<CurrentSystem> AddNewStarSystem(SystemPosition ps);
-        Task<Dictionary<Expedition, List<StarSystem>>> GetExpeditionStarSystems();
         Task ClearExpeditionCurrentFlags();
         Task<Expedition> UpdateExpedition(Expedition expedition);
         Task<Expedition> GetByExpeditionName(string name);
         Task<Expedition> InsertExpedition(Expedition expedition);
-        void SetCurrentExpedition(Expedition expedition);
+        Task SetCurrentExpedition(Expedition expedition);
     }
 }

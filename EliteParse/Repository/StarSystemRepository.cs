@@ -41,7 +41,7 @@ namespace EliteParse.Repository {
         public async Task<IEnumerable<StarSystem>> GetAll() {
             var n = 1000;
             var s = 0;
-            var query = ParseObject.GetQuery("StarSystem");
+            var query = ParseObject.GetQuery("System");
             query.Limit(n).Skip(s).OrderBy("createdAt");
             IEnumerable<ParseObject> items = await query.FindAsync();
             var starSystems = items.ToList().Select(p => StarSystemMapper.Map(p));
@@ -54,7 +54,7 @@ namespace EliteParse.Repository {
         /// <param name="id">Parse ObjectId</param>
         /// <returns>Single StarSystem instance</returns>
         public async Task<StarSystem> GetOneById(string id) {
-            var query = from item in ParseObject.GetQuery("StarSystem")
+            var query = from item in ParseObject.GetQuery("System")
                         where item.ObjectId == id &&
                         item.Get<string>("expedition") == _expedition.ObjectId
                         select item;
@@ -71,7 +71,7 @@ namespace EliteParse.Repository {
         /// <param name="name"></param>
         /// <returns>Single StarSystem instance</returns>
        public async Task<StarSystem> GetByName(string name) {
-            var query = from item in ParseObject.GetQuery("StarSystem")
+            var query = from item in ParseObject.GetQuery("System")
                         where item.Get<string>("name") == name &&
                         item.Get<string>("expedition") == _expedition.ObjectId
                         select item;
@@ -87,7 +87,7 @@ namespace EliteParse.Repository {
         /// </summary>
         /// <param name="entity">Entity to save</param>
         public async Task<StarSystem> Save(StarSystem entity) {
-            if (null == entity) throw new ArgumentNullException("StarSystem");
+            if (null == entity) throw new ArgumentNullException("System");
             ParseObject starSystem = new ParseObject("System");
             starSystem["name"] = entity.Name;
             starSystem["expedition"] = _expedition.ObjectId;
@@ -104,6 +104,32 @@ namespace EliteParse.Repository {
 
         public Task<StarSystem> Insert(StarSystem entity) {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<StarSystem>> GetByExpedition(Expedition expedition) {
+            if (null == expedition) throw new ArgumentNullException("expedition");
+            if (string.IsNullOrWhiteSpace(expedition.ObjectId)) throw new Exception("Expedition.ObjectId is null");
+            List<StarSystem> starSystemList = new List<StarSystem>();
+            int limit = 1000;
+            int skip = 0;
+            for (int i = 0; i < 10; i++) { // 10K limit
+                var query = from item in ParseObject.GetQuery("System").Limit(limit).Skip(skip)
+                            where item.Get<string>("expedition") == expedition.ObjectId
+                            select item;
+
+                IEnumerable<ParseObject> systems = await query.FindAsync();
+
+                foreach (var sys in systems) {
+                    starSystemList.Add(StarSystemMapper.Map(sys));
+                }
+
+                if (systems.ToList().Count < limit) break;
+
+                skip += limit;
+            }
+
+
+            return starSystemList;
         }
     }
 }
