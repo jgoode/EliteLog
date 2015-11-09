@@ -49,6 +49,7 @@
     <Compile Include="StarSystem.cs" />
     <Compile Include="StarSystemObject.cs" />
     <Compile Include="SystemClass.cs" />
+    <Compile Include="SystemGridRow.cs" />
     <Compile Include="SystemPointer.cs" />
     <Compile Include="SystemPosition.cs" />
     <Compile Include="User.cs" />

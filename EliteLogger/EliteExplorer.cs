@@ -26,6 +26,8 @@ namespace EliteLogger {
 
         private static RichTextBox static_richTextBox;
         private static ComboBox static_expedition_combo;
+        private static DataGridView static_system_grid;
+
         private static bool _userSelectsExpedition;
 
         public EliteExplorer() {
@@ -36,6 +38,7 @@ namespace EliteLogger {
             ParseClient.Initialize("oZ5uASGFBuliW7gkydvGPoKfB0ePMcS2pnsrmIyp", "kXDwODYgrhsfAd39x0LEmak3a204B0qWuNeCpR5k");
             static_richTextBox = Log;
             static_expedition_combo = ExpeditionComboBox;
+            static_system_grid = SystemGridView;
         }
 
         // methods
@@ -88,7 +91,16 @@ namespace EliteLogger {
                 }
             }
             static_expedition_combo.SelectedIndex = itemIndex;
+            PopulateSystemGrid();
             _userSelectsExpedition = true;
+        }
+
+        private static void PopulateSystemGrid() {
+            static_system_grid.DataSource = StarSystemToGridRowService.ConvertToGridRows(_persistentStore.StarSystems, 20);
+            static_system_grid.Columns[1].Width = 110;
+            static_system_grid.Columns[2].Width = 130;
+            static_system_grid.Columns[3].Width = 60;
+            static_system_grid.Columns[0].Visible = false;
         }
 
         // events
@@ -180,6 +192,7 @@ namespace EliteLogger {
             _currentExpedition = exp;
             await _persistentStore.SetCurrentExpedition(exp);
             Invoke(new Action<string, Color>(LogText), string.Format("Expedition {1} has {0} systems...", _persistentStore.StarSystems.Count(), _currentExpedition.Name), Color.Red);
+            PopulateSystemGrid();
         }
     }
 }
