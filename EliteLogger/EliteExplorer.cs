@@ -104,7 +104,6 @@ namespace EliteLogger {
         }
 
         // events
-
         private async void EliteExplorer_Load(object sender, EventArgs e) {
             if (ParseUser.CurrentUser != null) {
                 // do stuff with the user

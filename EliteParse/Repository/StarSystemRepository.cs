@@ -90,7 +90,7 @@ namespace EliteParse.Repository {
             if (null == entity) throw new ArgumentNullException("System");
             ParseObject starSystem = new ParseObject("System");
             starSystem["name"] = entity.Name;
-            starSystem["expedition"] = _expedition.ObjectId;
+            starSystem["expedition"] = entity.Expedition.ObjectId;
             await starSystem.SaveAsync();
             entity.ObjectId = starSystem.ObjectId;
             entity.CreatedAt = starSystem.CreatedAt.Value;
@@ -102,8 +102,16 @@ namespace EliteParse.Repository {
             throw new NotImplementedException();
         }
 
-        public Task<StarSystem> Insert(StarSystem entity) {
-            throw new NotImplementedException();
+        public async Task<StarSystem> Insert(StarSystem entity) {
+            if (null == entity) throw new ArgumentNullException("System");
+            ParseObject starSystem = new ParseObject("System");
+            starSystem["name"] = entity.Name;
+            starSystem["expedition"] = entity.Expedition.ObjectId;
+            await starSystem.SaveAsync();
+            entity.ObjectId = starSystem.ObjectId;
+            entity.CreatedAt = starSystem.CreatedAt.Value;
+            entity.UpdatedAt = starSystem.UpdatedAt.Value;
+            return entity;
         }
 
         public async Task<IEnumerable<StarSystem>> GetByExpedition(Expedition expedition) {

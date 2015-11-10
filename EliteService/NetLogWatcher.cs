@@ -55,7 +55,7 @@ namespace EliteService {
                         count = await ReadData(fileInfo, sr);
                     }
                 }
-            } catch {
+            } catch (Exception ex) {
                 return 0;
             }
 
@@ -131,7 +131,8 @@ namespace EliteService {
         private async Task AddNewSystem(SystemPosition ps) {
             if (ps == null) throw new ArgumentNullException("ps");
 
-            CurrentSystem = await _persistentStore.AddNewStarSystem(ps);
+            var starSystem = await _persistentStore.AddNewStarSystem(ps);
+
             OnNewPosition(this);
 
             //ss.Name = ps.Name;

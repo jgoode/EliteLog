@@ -49,30 +49,17 @@ namespace EliteService {
         }
 
         
-        public async Task<CurrentSystem> AddNewStarSystem(SystemPosition ps) {
-            if (false) {
-                var exp = await GetCurrentExpedition();
-            } 
-
+        public async Task<StarSystem> AddNewStarSystem(SystemPosition ps) {
+            if (null == CurrentExpedition) throw new Exception("CurrentExpedition is null");
+            if (null == ps) throw new ArgumentNullException("ps");
             var ss = new StarSystem();
             ss.Name = ps.Name;
             ss.Expedition = CurrentExpedition;
-            _currentSystem.StarSystem = ss;
-
-            return _currentSystem;
-
-            //var sys = await _starSystemRepository.Save(ss);
-            ////LogText(string.Format("{0}: Adding system: {1}", DateTime.Now, ps.Name));
-            //if (_currentSystem.SystemPointer == null) {
-
-            //} else {
-
-            //}
-            //var current = _systemPointer.Get<string>("currentObjectId"); ;
-            //_systemPointer["lastObjectId"] = current;
-            //_systemPointer["currentObjectId"] = sys.ObjectId;
-            //_systemPointer = await _systemPointerRepository.Save(_systemPointer);
-
+            var sys = await _starSystemRepository.Insert(ss);
+            if (null != sys) {
+                StarSystems.ToList().Add(sys);
+            }
+            return sys;
         }
 
         public async Task<IEnumerable<Expedition>> GetAllExpeditions() {

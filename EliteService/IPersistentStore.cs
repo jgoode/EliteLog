@@ -16,7 +16,7 @@ namespace EliteService {
         Task<Expedition> GetCurrentExpedition();
         Task<IEnumerable<Expedition>> GetAllExpeditions();
         Task<IEnumerable<StarSystem>> GetSystemsByExpedition(Expedition expedition);
-        Task<CurrentSystem> AddNewStarSystem(SystemPosition ps);
+        Task<StarSystem> AddNewStarSystem(SystemPosition ps);
         Task ClearExpeditionCurrentFlags();
         Task<Expedition> UpdateExpedition(Expedition expedition);
         Task<Expedition> GetByExpeditionName(string name);

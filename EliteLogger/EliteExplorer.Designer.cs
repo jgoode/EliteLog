@@ -42,7 +42,6 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.RightPanelTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.ObjectTypeListBox = new System.Windows.Forms.ListBox();
             this.ScannedObjectsListBox = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
@@ -250,7 +250,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(295, 599);
+            this.tabPage4.Size = new System.Drawing.Size(320, 582);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "tabPage4";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -269,10 +269,10 @@
             this.RightPanelTableLayout.Margin = new System.Windows.Forms.Padding(2);
             this.RightPanelTableLayout.Name = "RightPanelTableLayout";
             this.RightPanelTableLayout.RowCount = 5;
-            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.589041F));
-            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.41096F));
-            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
-            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.05263F));
+            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.94736F));
+            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 199F));
             this.RightPanelTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 196F));
             this.RightPanelTableLayout.Size = new System.Drawing.Size(147, 606);
             this.RightPanelTableLayout.TabIndex = 1;
@@ -286,16 +286,6 @@
             this.label2.Size = new System.Drawing.Size(107, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "System Object Types";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 227);
-            this.label3.Margin = new System.Windows.Forms.Padding(4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Scanned Objects";
             // 
             // groupBox2
             // 
@@ -400,22 +390,45 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "System Name";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 194);
+            this.label3.Margin = new System.Windows.Forms.Padding(4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Scanned Objects";
+            // 
             // ObjectTypeListBox
             // 
             this.ObjectTypeListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ObjectTypeListBox.FormattingEnabled = true;
+            this.ObjectTypeListBox.Items.AddRange(new object[] {
+            "Star",
+            "Blackhole",
+            "Neutron Star",
+            "White Dwarf",
+            "Earth-like",
+            "Water World",
+            "Metal Rich",
+            "High Metal",
+            "Ammonia",
+            "Jovian",
+            "Icy Planet",
+            "Rocky"});
             this.ObjectTypeListBox.Location = new System.Drawing.Point(3, 24);
             this.ObjectTypeListBox.Name = "ObjectTypeListBox";
-            this.ObjectTypeListBox.Size = new System.Drawing.Size(141, 196);
+            this.ObjectTypeListBox.Size = new System.Drawing.Size(141, 163);
             this.ObjectTypeListBox.TabIndex = 6;
             // 
             // ScannedObjectsListBox
             // 
             this.ScannedObjectsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ScannedObjectsListBox.FormattingEnabled = true;
-            this.ScannedObjectsListBox.Location = new System.Drawing.Point(3, 247);
+            this.ScannedObjectsListBox.Location = new System.Drawing.Point(3, 213);
             this.ScannedObjectsListBox.Name = "ScannedObjectsListBox";
-            this.ScannedObjectsListBox.Size = new System.Drawing.Size(141, 159);
+            this.ScannedObjectsListBox.Size = new System.Drawing.Size(141, 193);
             this.ScannedObjectsListBox.TabIndex = 7;
             // 
             // EliteExplorer
