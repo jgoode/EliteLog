@@ -42,8 +42,9 @@ namespace EliteLogger {
         }
 
         // methods
-        internal void NewPosition(object source) {
-            Invoke(new Action<string, Color>(LogText), "Starting file watch...", Color.Black);
+        internal void NewPosition(object source, NetLogWatcherEventArgs args) {
+            Invoke(new Action<string, Color>(LogText), string.Format("Added Star System {0}...", args.CurrentSystem.Name), Color.Black);
+            PopulateSystemGrid();
         }
 
         static void LogText(string text) {

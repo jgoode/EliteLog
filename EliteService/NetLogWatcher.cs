@@ -9,10 +9,10 @@ using EliteModels;
 namespace EliteService {
 
     public class NetLogWatcherEventArgs : EventArgs {
-        public CurrentSystem CurrentSystem { get; set; }
+        public StarSystem CurrentSystem { get; set; }
     }
 
-    public delegate void NetLogWatcherHandler(object source);
+    public delegate void NetLogWatcherHandler(object source, NetLogWatcherEventArgs args);
 
     public class NetLogWatcher : INetLogWatcher {
         public NetLogWatcherStatus Status { get; private set; }
@@ -132,8 +132,9 @@ namespace EliteService {
             if (ps == null) throw new ArgumentNullException("ps");
 
             var starSystem = await _persistentStore.AddNewStarSystem(ps);
-
-            OnNewPosition(this);
+            NetLogWatcherEventArgs args = new NetLogWatcherEventArgs();
+            args.CurrentSystem = starSystem;
+            OnNewPosition(this, args);
 
             //ss.Name = ps.Name;
             //var sys = await _starSystemRepository.Save(ss);
